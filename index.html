@@ -77,9 +77,16 @@ function startMonitoring() {
 
     audioContext = new AudioContext();
 
-    if (audioContext.state === "suspended") {
-        audioContext.resume();
-    }
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    gainNode.gain.value = 0.001;
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.05);
 
     if (navigator.geolocation) {
         watchId = navigator.geolocation.watchPosition(showPosition);
@@ -195,17 +202,21 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 
 function playAlertSound() {
+    if (!audioContext) {
+        return;
+    }
+
     const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
 
     oscillator.frequency.value = 880;
+    gainNode.gain.value = 1;
 
-    oscillator.connect(audioContext.destination);
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
 
     oscillator.start();
-
-    setTimeout(function() {
-        oscillator.stop();
-    }, 500);
+    oscillator.stop(audioContext.currentTime + 1);
 }
     </script>
 
