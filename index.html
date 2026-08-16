@@ -196,7 +196,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     document.getElementById("location").innerText =
         selectedStation + "まで約 " + testDistance.toFixed(2) + " km";
 
-    if (testdistance <= 1 && !alerted) {
+    if (testDistance <= 1 && !alerted) {
     playAlertSound();
 
     document.getElementById("warning").innerText =
