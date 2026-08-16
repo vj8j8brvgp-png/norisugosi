@@ -70,9 +70,16 @@ let watchId;
 let alerted = false;
 
 
+let audioContext;
+
 function startMonitoring() {
     alerted = false;
 
+    audioContext = new AudioContext();
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
 
     if (navigator.geolocation) {
         watchId = navigator.geolocation.watchPosition(showPosition);
@@ -188,8 +195,6 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
 
 function playAlertSound() {
-    const audioContext = new AudioContext();
-
     const oscillator = audioContext.createOscillator();
 
     oscillator.frequency.value = 880;
