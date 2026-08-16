@@ -127,6 +127,7 @@ function showPosition(position) {
     
 
     if (distance <= 1 && !alerted) {
+    playAlertSound();
     alert("🚨 まもなく" + selectedStation + "です！");
     alerted = true;
     }
