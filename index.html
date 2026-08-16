@@ -46,6 +46,8 @@
 
     <p id="location">現在地：まだ取得していません</p>
 
+    <p id="warning"></p>
+
 
     <audio id="alertSound" src="alert.mp3" preload="auto"></audio>
 
@@ -118,11 +120,14 @@ function showPosition(position) {
         distance.toFixed(2) + " km";
     
 
-    if (distance <= 1 && !alerted) {
+        if (distance <= 1 && !alerted) {
     playAlertSound();
-    alert("🚨 まもなく" + selectedStation + "です！");
+
+    document.getElementById("warning").innerText =
+        "🚨 まもなく" + selectedStation + "です！";
+
     alerted = true;
-    }
+}
 }
 
 
@@ -170,7 +175,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 
     if (distance <= 1 && !alerted) {
     playAlertSound();
-    alert("🚨 まもなく" + selectedStation + "です！");
+
+    document.getElementById("warning").innerText =
+        "🚨 まもなく" + selectedStation + "です！";
+
     alerted = true;
     }
     }
@@ -188,9 +196,12 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     document.getElementById("location").innerText =
         selectedStation + "まで約 " + testDistance.toFixed(2) + " km";
 
-    if (testDistance <= 1 && !alerted) {
+    if (testdistance <= 1 && !alerted) {
     playAlertSound();
-    alert("🚨 まもなく" + selectedStation + "です！");
+
+    document.getElementById("warning").innerText =
+        "🚨 まもなく" + selectedStation + "です！";
+
     alerted = true;
     }
 }
