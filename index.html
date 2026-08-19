@@ -81,9 +81,18 @@ let alerted = false;
 function startMonitoring() {
     alerted = false;
 
+    const audio = document.getElementById("alertSound");
+
+    audio.play().then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+    }).catch(error => {
+        console.log("音声の準備に失敗しました", error);
+    });
 
     if (navigator.geolocation) {
         watchId = navigator.geolocation.watchPosition(showPosition);
+
         alert("監視を開始しました！");
     } else {
         alert("このブラウザでは位置情報を取得できません。");
