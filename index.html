@@ -83,17 +83,17 @@ function startMonitoring() {
 
     const audio = document.getElementById("alertSound");
 
-    audio.play().then(() => {
-        audio.pause();
-        audio.currentTime = 0;
-    }).catch(error => {
-        console.log("音声の準備に失敗しました", error);
+    audio.currentTime = 0;
+
+    audio.play().catch(error => {
+        console.log("監視開始時の音声再生に失敗しました", error);
     });
 
     if (navigator.geolocation) {
         watchId = navigator.geolocation.watchPosition(showPosition);
 
-        alert("監視を開始しました！");
+        document.getElementById("warning").innerText =
+            "🟢 監視を開始しました";
     } else {
         alert("このブラウザでは位置情報を取得できません。");
     }
